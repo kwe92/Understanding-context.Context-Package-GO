@@ -1,0 +1,9 @@
+go 1.21.0
+
+use ./understanding-context00
+
+use ./understanding-context01
+
+use ./understanding-context02
+
+use ./understanding-context03
