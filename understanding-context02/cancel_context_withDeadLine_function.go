@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-// TODO: review code and comments
-
-// TODO: add comments for context.WithDeadLine
-
 func main() {
 	// instatiate the main parent context to be passed throughout your program
 	ctx := context.Background()
@@ -21,9 +17,8 @@ func doSomething(ctx context.Context) {
 	// instatiate a new time.Time object and add the amount of time before cancelation
 	var deadLine time.Time = time.Now().Add(3 * time.Second)
 
-	// create a new context.Context scoped locally to the doSomething
+	// create a new context.Context scoped locally to the doSomething function
 	// and a cancelation function returned by context.WithDeadline
-	// context.WithDeadline takes two arguments: parent context and a time.Time object representing the time till cancelation
 	ctx, cancelCtx := context.WithDeadline(ctx, deadLine)
 
 	// defer the cancelation of the context if the deadline is not exceeded
@@ -39,7 +34,7 @@ func doSomething(ctx context.Context) {
 	for n := 0; n < 5; n++ {
 		// use select statement to check if channel is closed
 		// why is that needed here?
-		// because go routines will deadlock otherwise as the doAnother will continue trying to send number to a closed channel
+		// because go routines will deadlock otherwise as the doAnother function will continue trying to send numbers to a closed channel
 
 		select {
 		// write the nth integer to out channel
@@ -90,4 +85,9 @@ func doAnother(ctx context.Context, in <-chan int) {
 	}
 }
 
-// context.WithDeadLine
+// context.WithDeadline
+
+//   - context.WithCancel with the added benefit of timing out
+//   - takes two arguments:
+//       - parent context
+//       - time.Time object representing the time till cancelation
