@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-// TODO: review code and comments
-
 func main() {
 	// instatiate parent context
 	ctx := context.Background()
@@ -55,12 +53,12 @@ func doAnother(ctx context.Context, in <-chan int) {
 	for {
 		select {
 
-		// read from in channel if there are values to be read
+		// read from `in` channel if there are values to be read
 		case num := <-in:
 			// process value doing something with it
 			fmt.Println("value recieved from in channel:", num)
 
-		// cancelation value does not need to be assigned to variable
+		// the cancelation value does not need to be assigned to a variable
 		// nil return values are skipped by for select statements
 		// an empty struct is the value returned by a closed channel via cancelation as they take up no memory
 		case cancelChannelValue := <-ctx.Done():
